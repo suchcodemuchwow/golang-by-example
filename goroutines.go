@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"time"
 )
 
 func f(from string) {
@@ -10,30 +11,28 @@ func f(from string) {
 	}
 }
 
-/*
 func main() {
 
-    f("direct")
+	f("function call direct")
 
-    go f("goroutine")
+	go f("create goroutine 1")
+	go f("create goroutine 2")
+	go func(msg string) { fmt.Println(msg) }("create goroutine inline")
 
-    go func(msg string) {
-        fmt.Println(msg)
-    }("going")
-
-    time.Sleep(time.Second)
-    fmt.Println("done")
+	time.Sleep(time.Second / 10)
 }
-*/
 
 /*
+order of goroutine stdouts change in each run
 $ go run goroutines.go
-direct : 0
-direct : 1
-direct : 2
-goroutine : 0
-going
-goroutine : 1
-goroutine : 2
-done
+function call direct : 0
+function call direct : 1
+function call direct : 2
+create goroutine 1 : 0
+create goroutine 1 : 1
+create goroutine 1 : 2
+create goroutine inline
+create goroutine 2 : 0
+create goroutine 2 : 1
+create goroutine 2 : 2
 */
