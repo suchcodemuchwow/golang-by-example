@@ -24,7 +24,7 @@ func main() {
 	go func() {
 		time.Sleep(2 * time.Second)
 		c2 <- "result 2"
-	}()
+	}()     
 	select {
 	case res := <-c2:
 		fmt.Println(res)
